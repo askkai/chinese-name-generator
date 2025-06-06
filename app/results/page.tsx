@@ -8,6 +8,7 @@ import { ArrowLeft, Volume2, Star, Copy, RefreshCw, Sparkles, Check } from "luci
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import GeneratingPopup from "@/components/GeneratingPopup"
+import Footer from "@/components/Footer"
 
 // 名字类型定义
 interface ChineseName {
@@ -578,6 +579,9 @@ export default function ResultsPage() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   )
 }
