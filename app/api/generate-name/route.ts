@@ -1,9 +1,9 @@
 import { OpenAI } from 'openai';
 import { NextRequest, NextResponse } from 'next/server';
 
-// 安全处理API密钥 - 从环境变量获取或使用默认值
-// 在生产环境中应该使用环境变量，而不是硬编码
-const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || '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';
+// 安全处理API密钥 - 从环境变量获取
+// 确保设置了环境变量OPENROUTER_API_KEY
+const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 
 // 创建OpenAI客户端实例
 const client = new OpenAI({
