@@ -107,13 +107,13 @@ export default function HistoryPage() {
           <Link href="/">
             <Button variant="ghost" className="text-white hover:bg-white/10 backdrop-blur-sm">
               <ArrowLeft className="w-4 h-4 mr-2" />
-              返回首页
+              Back to Home
             </Button>
           </Link>
         }
       />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-6 py-8">
+      <div className="relative z-10 max-w-4xl mx-auto px-6 pt-24 pb-8">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-white mb-4">History & Favorites</h1>

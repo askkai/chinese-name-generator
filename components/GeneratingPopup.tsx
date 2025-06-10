@@ -139,31 +139,42 @@ const GeneratingPopup = ({ isOpen, onClose }: GeneratingPopupProps) => {
           >
             {/* Floating particles effect */}
             <div className="absolute inset-0 overflow-hidden rounded-2xl">
-              {Array.from({ length: 20 }).map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-2 h-2 bg-white/20 rounded-full"
-                  initial={{ 
-                    x: `${Math.random() * 100}%`, 
-                    y: `${Math.random() * 100}%`, 
-                    opacity: Math.random() * 0.5 + 0.3 
-                  }}
-                  animate={{ 
-                    x: `${Math.random() * 100}%`, 
-                    y: `${Math.random() * 100}%`,
-                    opacity: [Math.random() * 0.5 + 0.3, Math.random() * 0.5 + 0.5, Math.random() * 0.5 + 0.3],
-                  }}
-                  transition={{ 
-                    duration: Math.random() * 10 + 10, 
-                    repeat: Infinity,
-                    ease: "linear"
-                  }}
-                  style={{ 
-                    width: `${Math.random() * 6 + 2}px`, 
-                    height: `${Math.random() * 6 + 2}px` 
-                  }}
-                />
-              ))}
+              {Array.from({ length: 20 }).map((_, i) => {
+                // 为每个粒子生成一个随机尺寸，但保持一致的宽高比
+                const size = Math.random() * 6 + 2;
+                // 确保粒子在容器内，远离边缘
+                const xPos = 10 + Math.random() * 80;
+                const yPos = 10 + Math.random() * 80;
+                // 为每个粒子设置一个唯一的动画持续时间
+                const duration = Math.random() * 10 + 15;
+                
+                return (
+                  <motion.div
+                    key={i}
+                    className="absolute bg-white/20 rounded-full"
+                    initial={{ 
+                      x: `${xPos}%`, 
+                      y: `${yPos}%`, 
+                      opacity: Math.random() * 0.5 + 0.3 
+                    }}
+                    animate={{ 
+                      x: [`${xPos}%`, `${xPos + (Math.random() * 10 - 5)}%`],
+                      y: [`${yPos}%`, `${yPos + (Math.random() * 10 - 5)}%`],
+                      opacity: [0.3, 0.7, 0.3],
+                      scale: [1, 1.2, 1]
+                    }}
+                    transition={{ 
+                      duration: duration, 
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                    style={{ 
+                      width: `${size}px`, 
+                      height: `${size}px` 
+                    }}
+                  />
+                );
+              })}
             </div>
 
             <div className="relative">

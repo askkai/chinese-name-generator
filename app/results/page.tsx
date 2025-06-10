@@ -438,12 +438,12 @@ export default function ResultsPage() {
             disabled={isLoading}
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
-            {isLoading ? '生成中...' : '重新生成'}
+            {isLoading ? 'Generating...' : 'Regenerate'}
           </Button>
         }
       />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 py-8">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-8">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-white mb-4">Your Chinese Names</h1>
