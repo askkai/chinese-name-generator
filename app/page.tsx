@@ -11,6 +11,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import GeneratingPopup from "@/components/GeneratingPopup"
 import Footer from "@/components/Footer"
+import Navbar from "@/components/Navbar"
 
 const exampleNames = [
   { chinese: "李明", pinyin: "Lǐ Míng", meaning: "Bright & Clear" },
@@ -188,36 +189,10 @@ export default function HomePage() {
       </div>
 
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-black/20 backdrop-blur-md border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-2">
-              <Sparkles className="w-8 h-8 text-white" />
-              <span className="text-2xl font-bold text-white">ChineseName.ai</span>
-            </div>
-            <div className="flex items-center space-x-6">
-              <button 
-                onClick={() => scrollToSection(pricingRef)}
-                className="text-white hover:text-purple-400 transition-colors font-medium"
-              >
-                Pricing
-              </button>
-              <button 
-                onClick={() => scrollToSection(faqRef)}
-                className="text-white hover:text-purple-400 transition-colors font-medium"
-              >
-                FAQ
-              </button>
-              <Link href="/history">
-                <Button variant="ghost" className="text-white hover:bg-white/10 backdrop-blur-sm">
-                  <History className="w-4 h-4 mr-2" />
-                  History
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navbar 
+        onScrollToPricing={() => scrollToSection(pricingRef)}
+        onScrollToFaq={() => scrollToSection(faqRef)}
+      />
 
       {/* Hero Section */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 pt-20 pb-16 text-center">
@@ -352,10 +327,10 @@ export default function HomePage() {
                 disabled={isGenerating}
                 className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold py-3 text-lg transition-all duration-300 transform hover:scale-105"
               >
-                <Sparkles className="w-5 h-5 mr-2" />
+                  <Sparkles className="w-5 h-5 mr-2" />
                 {isGenerating ? "Generating..." : "Generate My BaZi-Aligned Name"}
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
             </form>
           </CardContent>
         </Card>
