@@ -9,6 +9,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import GeneratingPopup from "@/components/GeneratingPopup"
 import Footer from "@/components/Footer"
+import Navbar from "@/components/Navbar"
 
 // 名字类型定义
 interface ChineseName {
@@ -427,18 +428,9 @@ export default function ResultsPage() {
       />
 
       {/* Navigation */}
-      <nav className="relative z-10 p-6">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link href="/">
-            <Button variant="ghost" className="text-white hover:bg-white/10 backdrop-blur-sm">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Generator
-            </Button>
-          </Link>
-          <div className="flex items-center space-x-2">
-            <Sparkles className="w-8 h-8 text-white" />
-            <span className="text-2xl font-bold text-white">ChineseName.ai</span>
-          </div>
+      <Navbar 
+        showMainNav={false}
+        rightActions={
           <Button 
             variant="ghost" 
             className="text-white hover:bg-white/10 backdrop-blur-sm"
@@ -446,10 +438,10 @@ export default function ResultsPage() {
             disabled={isLoading}
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
-            {isLoading ? 'Generating...' : 'Generate Again'}
+            {isLoading ? '生成中...' : '重新生成'}
           </Button>
-        </div>
-      </nav>
+        }
+      />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-8">
         {/* Header */}
@@ -485,23 +477,23 @@ export default function ResultsPage() {
 
         {/* Name Cards Grid */}
         {names.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
             {names.map((name: ChineseName, index: number) => (
-              <Card
-                key={index}
-                className="bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:scale-105"
-              >
-                <CardContent className="p-6">
-                  <div className="text-center mb-4">
-                    <div className="text-2xl font-bold text-white mb-2">{name.chinese}</div>
-                    <div className="text-lg text-white/80 mb-1">{name.pinyin}</div>
+            <Card
+              key={index}
+              className="bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:scale-105"
+            >
+              <CardContent className="p-6">
+                <div className="text-center mb-4">
+                  <div className="text-2xl font-bold text-white mb-2">{name.chinese}</div>
+                  <div className="text-lg text-white/80 mb-1">{name.pinyin}</div>
                     <div className="text-sm text-white/60 mb-3">
                       <span className="text-white/80">Meaning:</span> {name.meaning}
                     </div>
                     <Badge className={`text-xs ${getPopularityColor(name.popularity)}`}>
                       {name.popularity}
                     </Badge>
-                  </div>
+                </div>
 
                   <div className="flex justify-center space-x-4 mt-6">
                     <EmojiButton
@@ -519,7 +511,7 @@ export default function ResultsPage() {
                     </EmojiButton>
                     <EmojiButton
                       icon={Star}
-                      onClick={() => toggleFavorite(index)}
+                    onClick={() => toggleFavorite(index)}
                       active={name.isFavorite}
                       color="pink"
                       activeColor="yellow"
@@ -538,7 +530,7 @@ export default function ResultsPage() {
                     </EmojiButton>
                     <EmojiButton
                       icon={Copy}
-                      onClick={() => copyName(name.chinese, index)}
+                    onClick={() => copyName(name.chinese, index)}
                       color="green"
                       title="Copy name"
                     >
@@ -553,11 +545,11 @@ export default function ResultsPage() {
                         </>
                       )}
                     </EmojiButton>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
         ) : (
           <div className="flex justify-center items-center py-20">
             <div className="text-white text-xl">Loading your Chinese names...</div>

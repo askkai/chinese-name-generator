@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ArrowLeft, Star, Copy, RefreshCw, Sparkles, Calendar, Download } from "lucide-react"
 import Link from "next/link"
+import Navbar from "@/components/Navbar"
 
 // 类型定义
 interface ChineseName {
@@ -100,21 +101,17 @@ export default function HistoryPage() {
       </div>
 
       {/* Navigation */}
-      <nav className="relative z-10 p-6">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
+      <Navbar 
+        showMainNav={false}
+        rightActions={
           <Link href="/">
             <Button variant="ghost" className="text-white hover:bg-white/10 backdrop-blur-sm">
               <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Home
+              返回首页
             </Button>
           </Link>
-          <div className="flex items-center space-x-2">
-            <Sparkles className="w-8 h-8 text-white" />
-            <span className="text-2xl font-bold text-white">ChineseName.ai</span>
-          </div>
-          <div></div>
-        </div>
-      </nav>
+        }
+      />
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 py-8">
         {/* Header */}
@@ -138,84 +135,84 @@ export default function HistoryPage() {
           <TabsContent value="history" className="space-y-6 mt-8">
             {historyData.length > 0 ? (
               historyData.map((session) => (
-                <Card key={session.id} className="bg-white/10 backdrop-blur-md border-white/20">
-                  <CardContent className="p-6">
-                    <div className="flex justify-between items-start mb-4">
-                      <div className="flex items-center space-x-3">
-                        <Calendar className="w-5 h-5 text-white/60" />
-                        <div>
-                          <div className="text-white font-medium">{session.date}</div>
-                          <div className="text-white/60 text-sm">{session.time}</div>
-                        </div>
+              <Card key={session.id} className="bg-white/10 backdrop-blur-md border-white/20">
+                <CardContent className="p-6">
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="flex items-center space-x-3">
+                      <Calendar className="w-5 h-5 text-white/60" />
+                      <div>
+                        <div className="text-white font-medium">{session.date}</div>
+                        <div className="text-white/60 text-sm">{session.time}</div>
                       </div>
-                      <div className="flex space-x-2">
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={() => toggleExpanded(session.id)}
-                          className="text-white hover:bg-white/10"
-                        >
-                          {expandedHistory === session.id ? "Collapse" : "Expand"}
-                        </Button>
+                    </div>
+                    <div className="flex space-x-2">
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => toggleExpanded(session.id)}
+                        className="text-white hover:bg-white/10"
+                      >
+                        {expandedHistory === session.id ? "Collapse" : "Expand"}
+                      </Button>
                         <Button 
                           size="sm" 
                           variant="ghost" 
                           className="text-white hover:bg-white/10"
                           onClick={() => regenerateFromHistory(session.preferences)}
                         >
-                          <RefreshCw className="w-4 h-4 mr-1" />
-                          Regenerate
-                        </Button>
-                      </div>
+                        <RefreshCw className="w-4 h-4 mr-1" />
+                        Regenerate
+                      </Button>
                     </div>
+                  </div>
 
-                    {/* Preferences Summary */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30">
+                  {/* Preferences Summary */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30">
                         {session.preferences.currentName || session.preferences.name || "No name provided"}
-                      </Badge>
-                      <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30">
-                        {session.preferences.gender}
-                      </Badge>
-                      <Badge className="bg-green-500/20 text-green-300 border-green-500/30">
-                        {session.preferences.method}
-                      </Badge>
-                      <Badge className="bg-orange-500/20 text-orange-300 border-orange-500/30">
-                        {session.preferences.surname} surname
-                      </Badge>
-                    </div>
+                    </Badge>
+                    <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30">
+                      {session.preferences.gender}
+                    </Badge>
+                    <Badge className="bg-green-500/20 text-green-300 border-green-500/30">
+                      {session.preferences.method}
+                    </Badge>
+                    <Badge className="bg-orange-500/20 text-orange-300 border-orange-500/30">
+                      {session.preferences.surname} surname
+                    </Badge>
+                  </div>
 
-                    {/* Names Preview/Full List */}
-                    {expandedHistory === session.id ? (
-                      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {session.names.map((name, index) => (
-                          <div key={index} className="bg-white/5 rounded-lg p-4 backdrop-blur-sm">
-                            <div className="text-center">
-                              <div className="text-lg font-bold text-white mb-1">{name.chinese}</div>
-                              <div className="text-sm text-white/80 mb-1">{name.pinyin}</div>
+                  {/* Names Preview/Full List */}
+                  {expandedHistory === session.id ? (
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {session.names.map((name, index) => (
+                        <div key={index} className="bg-white/5 rounded-lg p-4 backdrop-blur-sm">
+                          <div className="text-center">
+                            <div className="text-lg font-bold text-white mb-1">{name.chinese}</div>
+                            <div className="text-sm text-white/80 mb-1">{name.pinyin}</div>
                               <div className="text-xs text-white/60 mb-2">
                                 <span className="text-white/80">Meaning:</span> {name.meaning}
                               </div>
-                              <Button
-                                size="sm"
-                                variant="ghost"
-                                onClick={() => copyName(name.chinese)}
-                                className="text-white hover:bg-white/10"
-                              >
-                                <Copy className="w-3 h-3 mr-1" />
-                                {copiedName === name.chinese ? "Copied!" : "Copy"}
-                              </Button>
-                            </div>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() => copyName(name.chinese)}
+                              className="text-white hover:bg-white/10"
+                            >
+                              <Copy className="w-3 h-3 mr-1" />
+                              {copiedName === name.chinese ? "Copied!" : "Copy"}
+                            </Button>
                           </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="text-white/80">
-                        Generated {session.names.length} names • Click expand to view all
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-white/80">
+                      Generated {session.names.length} names • Click expand to view all
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
               ))
             ) : (
               <div className="text-center py-10">
@@ -238,14 +235,14 @@ export default function HistoryPage() {
             </div>
 
             {favoritesData.length > 0 ? (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {favoritesData.map((name, index) => (
-                  <Card
-                    key={index}
-                    className="bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/15 transition-all duration-300"
-                  >
-                    <CardContent className="p-6">
-                      <div className="text-center mb-4">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {favoritesData.map((name, index) => (
+                <Card
+                  key={index}
+                  className="bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/15 transition-all duration-300"
+                >
+                  <CardContent className="p-6">
+                    <div className="text-center mb-4">
                         <div className="text-xl font-bold text-white mb-1">{name.chinese}</div>
                         <div className="text-sm text-white/80 mb-1">{name.pinyin}</div>
                         <div className="text-xs text-white/60 mb-3">{name.meaning}</div>
@@ -253,21 +250,21 @@ export default function HistoryPage() {
                           <div className="text-xs text-white/40">Added on {name.dateAdded}</div>
                         )}
                       </div>
-                      <div className="flex justify-center">
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={() => copyName(name.chinese)}
+                    <div className="flex justify-center">
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => copyName(name.chinese)}
                           className="text-white hover:bg-white/10"
-                        >
+                      >
                           <Copy className="w-3 h-3 mr-1" />
-                          {copiedName === name.chinese ? "Copied!" : "Copy"}
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+                        {copiedName === name.chinese ? "Copied!" : "Copy"}
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
             ) : (
               <div className="text-center py-10">
                 <p className="text-white/80">No favorites yet. Star some names to add them here!</p>
