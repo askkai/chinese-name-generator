@@ -197,7 +197,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 pt-20 pb-16 text-center">
         <h1 className="text-6xl font-bold text-white mb-6 leading-tight">
-          Get Your Perfect
+          Get Your Perfect 测试名字
           <span className="bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent block">
             BaZi-Aligned Chinese Name
           </span>
